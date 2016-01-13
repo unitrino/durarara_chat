@@ -1,0 +1,111 @@
+<!doctype html>
+<head><title>Durarara chat_^-^</title>
+</head>
+<style>
+.chat_mess{
+    white-space: pre-wrap;
+  overflow: visible;
+  resize: none;
+  color: white;
+  font: 20pt sans-serif;
+  background: black;
+  width: 86%;
+  min-height: 100px;
+  height: auto;
+  margin: 15px;
+
+}
+.text {
+    text-align:  center;
+   }
+.img_avatar {
+    width: 50px;
+    height: 50px;
+   }
+
+ .chat_table{
+   overflow: scroll;
+ }
+ .avatat_nickname{
+  text-align:  center;
+ }
+
+ .avatat_nickname_cell{
+  width: 100px;
+  height: 100px;
+ }
+ .button_style {
+    font-color: white;
+    background: black;
+    width: 150px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 20px;
+   }
+.mess {
+    border: 2px solid white;
+    border-radius: 20px;
+    width: 300px;
+    height: auto;
+   }
+</style>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+</script>
+
+
+<script type="text/javascript">
+$(function worker(){
+    $.ajaxSetup ({
+        type: "POST",
+        cache: false,
+        complete: function() {
+          setTimeout(worker, 1000);
+        }
+    });
+    // load() functions
+    var loadUrl = "http://unitrino.pythonanywhere.com/chat_send_mess_load";
+    $("#rezz").load(loadUrl);
+});
+</script>
+<body bgcolor = "black">
+<p class = "text">
+	<font color = "white" size = "10px">DURARARA CHAT</font>
+</p>
+<br>
+<form action="/chat_send_mess" method="post" id = "sf">
+    <p class = "text">
+  <textarea name="text_to_send" cols="40" rows="3"></textarea>
+  </p>
+  <p class = "text">
+    <div style = "align: middle;height: 30px;margin:0 auto;width: 150px;">
+<button class="button_style" id = "uniq_button" onclick="submit();"><p style = "color: white;margin: 5px;">POST!</p></button>
+</div>
+    </p>
+</form>
+<br>
+{{vall}}
+<br>
+<br>
+<table width = "90%" id = "rezz">
+  <tr>
+  {% for avatar,nickname,message in text_to_chat %}
+        <tr>
+        <td class = "avatat_nickname_cell">
+        <p class = "avatat_nickname">
+        <font color = "white" size = "3px">{{ nickname }}</font>
+        </p>
+        <p class = "avatat_nickname">
+        <img class = "img_avatar" src="{{ avatar }}">
+        </p>
+        </td>
+        <td class = "mess">
+            <div class = "chat_mess">{{ message }}</div>
+        </td>
+        </tr>
+    {% endfor %}
+  </tr>
+</table>
+</body>
+</html>
